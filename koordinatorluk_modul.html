@@ -122,6 +122,24 @@
   <button type="submit" class="btn btn-primary">Kaydet</button>
 
 </form>
+<hr class="my-4" />
+
+<h6 class="card-title mb-3">Kayıtlı Koordinatörlükler</h6>
+<div class="table-responsive">
+  <table id="koordinatorlukTable" class="table table-striped table-hover align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>#</th>
+        <th>Koordinatörlük Adı</th>
+        <th>İl</th>
+        <th>Görevli Koordinatör</th>
+        <th>İşlemler</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
 
                 </div>
               </div>
@@ -179,6 +197,141 @@
 
     <script src="assets/js/include.js"></script>
         <!--Menüler eklendi-->
+
+
+        <script>
+  (function () {
+    const LS_KEY = "koordinatorlukler";
+
+    const form = document.getElementById("koordinatorForm");
+    const inpAdi = document.getElementById("koordinatorlukAdi");
+    const selIl = document.getElementById("il");
+    const inpGorevli = document.getElementById("gorevli");
+    const tableBody = document.querySelector("#koordinatorlukTable tbody");
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const resetBtn = form.querySelector('button[type="reset"]');
+
+    let rows = load() || [];
+    let editingId = null;
+
+    render();
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const payload = {
+        id: editingId ?? Date.now(),
+        adi: (inpAdi.value || "").trim(),
+        il: selIl.value,
+        gorevli: (inpGorevli.value || "").trim(),
+      };
+
+      if (!payload.adi || !payload.il) {
+        alert("Lütfen gerekli alanları doldurun.");
+        return;
+      }
+
+      if (editingId) {
+        rows = rows.map((r) => (r.id === editingId ? payload : r));
+        editingId = null;
+        submitBtn.textContent = "Kaydet";
+      } else {
+        rows.push(payload);
+      }
+
+      save(rows);
+      render();
+      form.reset();
+      if (selIl.querySelector("option[disabled]")) selIl.selectedIndex = 0;
+    });
+
+    resetBtn.addEventListener("click", function () {
+      editingId = null;
+      submitBtn.textContent = "Kaydet";
+    });
+
+    function render() {
+      tableBody.innerHTML = "";
+      if (!rows.length) {
+        tableBody.innerHTML =
+          '<tr><td colspan="5" class="text-center text-muted">Henüz kayıt yok.</td></tr>';
+        return;
+      }
+
+      rows.forEach((r, i) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${i + 1}</td>
+          <td>${escapeHtml(r.adi)}</td>
+          <td class="text-capitalize">${escapeHtml(r.il)}</td>
+          <td>${escapeHtml(r.gorevli || "-")}</td>
+          <td>
+            <div class="btn-group btn-group-sm" role="group">
+              <button class="btn btn-outline-primary" data-action="edit" data-id="${r.id}">Düzenle</button>
+              <button class="btn btn-outline-danger" data-action="delete" data-id="${r.id}">Sil</button>
+            </div>
+          </td>
+        `;
+        tableBody.appendChild(tr);
+      });
+    }
+
+    tableBody.addEventListener("click", function (e) {
+      const btn = e.target.closest("button[data-action]");
+      if (!btn) return;
+
+      const id = Number(btn.getAttribute("data-id"));
+      const action = btn.getAttribute("data-action");
+
+      if (action === "edit") {
+        const row = rows.find((r) => r.id === id);
+        if (!row) return;
+
+        inpAdi.value = row.adi;
+        selIl.value = row.il;
+        inpGorevli.value = row.gorevli || "";
+        editingId = id;
+        submitBtn.textContent = "Güncelle";
+        inpAdi.focus();
+      }
+
+      if (action === "delete") {
+        if (confirm("Bu kaydı silmek istiyor musunuz?")) {
+          rows = rows.filter((r) => r.id !== id);
+          save(rows);
+          render();
+
+          if (editingId === id) {
+            form.reset();
+            editingId = null;
+            submitBtn.textContent = "Kaydet";
+          }
+        }
+      }
+    });
+
+    function save(arr) {
+      localStorage.setItem(LS_KEY, JSON.stringify(arr));
+    }
+
+    function load() {
+      try {
+        return JSON.parse(localStorage.getItem(LS_KEY) || "[]");
+      } catch {
+        return [];
+      }
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+  })();
+</script>
 
   </body>
 </html>

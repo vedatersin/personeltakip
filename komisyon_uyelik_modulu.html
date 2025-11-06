@@ -138,6 +138,27 @@
   <button type="submit" class="btn btn-primary">Kaydet</button>
 
 </form>
+<hr class="my-4" />
+
+<h6 class="card-title mb-3">Komisyon Üyelik Kayıtları</h6>
+<div class="table-responsive">
+  <table id="uyelikTable" class="table table-striped table-hover align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>#</th>
+        <th>Komisyon</th>
+        <th>Personel</th>
+        <th>Statü</th>
+        <th>Başlangıç</th>
+        <th>Bitiş</th>
+        <th>Aktif</th>
+        <th>İşlemler</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+
 
                 </div>
               </div>
@@ -195,6 +216,172 @@
 
       <script src="assets/js/include.js"></script>
         <!--Menüler eklendi-->
+<script>
+(function () {
+  const LS_KEY = "komisyonUyelikleri";
+
+  // === DOM ===
+  // DÜZELTİLEN SATIR: uyelikForm yerine koordinatorForm
+  const form = document.getElementById("koordinatorForm");
+  const selKomisyon = document.getElementById("komisyon");
+  const selPersonel = document.getElementById("personel");
+  const selStatu = document.getElementById("statu");
+  const inpBaslangic = document.getElementById("baslangic");
+  const inpBitis = document.getElementById("bitis");
+  const chkAktif = document.getElementById("aktif");
+  const tbody = document.querySelector("#uyelikTable tbody");
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const resetBtn = form.querySelector('button[type="reset"]');
+
+  // === Durum ===
+  let rows = load() || [];
+  let editingId = null;
+
+  render();
+
+  // === Helpers ===
+  function getOptText(sel) {
+    const o = sel.options[sel.selectedIndex];
+    return o ? o.text : "";
+  }
+  function escapeHtml(s) {
+    return String(s)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+  function save(arr){ localStorage.setItem(LS_KEY, JSON.stringify(arr)); }
+  function load(){
+    try { return JSON.parse(localStorage.getItem(LS_KEY) || "[]"); }
+    catch { return []; }
+  }
+  function validDateOrder(a, b){
+    if(!a || !b) return true;
+    const da = new Date(a), db = new Date(b);
+    return isFinite(da) && isFinite(db) ? da <= db : true;
+  }
+
+  // === Submit ===
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const payload = {
+      id: editingId ?? Date.now(),
+      komisyonVal: selKomisyon.value,
+      komisyonTxt: getOptText(selKomisyon),
+      personelVal: selPersonel.value,
+      personelTxt: getOptText(selPersonel),
+      statuVal: selStatu.value,
+      statuTxt: getOptText(selStatu),
+      baslangic: (inpBaslangic.value || "").trim(),
+      bitis: (inpBitis.value || "").trim(),
+      aktif: !!chkAktif.checked
+    };
+
+    // Basit doğrulama
+    if(!payload.komisyonVal || !payload.personelVal || !payload.statuVal){
+      alert("Komisyon, Personel ve Statü alanları zorunludur.");
+      return;
+    }
+    if(!validDateOrder(payload.baslangic, payload.bitis)){
+      alert("Bitiş tarihi başlangıç tarihinden önce olamaz.");
+      return;
+    }
+
+    if(editingId){
+      rows = rows.map(r => r.id === editingId ? payload : r);
+      editingId = null;
+      submitBtn.textContent = "Kaydet";
+    } else {
+      rows.push(payload);
+    }
+
+    save(rows);
+    render();
+    form.reset();
+    // Varsayılan placeholder seçeneğine dön
+    [selKomisyon, selPersonel, selStatu].forEach(s => {
+      const i = Array.from(s.options).findIndex(o => o.disabled || o.value === "");
+      if(i >= 0) s.selectedIndex = i;
+    });
+  });
+
+  // Reset: düzenlemeyi iptal
+  resetBtn.addEventListener("click", function(){
+    editingId = null;
+    submitBtn.textContent = "Kaydet";
+  });
+
+  // === Tablo ===
+  function render(){
+    tbody.innerHTML = "";
+    if(!rows.length){
+      tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted">Henüz kayıt yok.</td></tr>';
+      return;
+    }
+    rows.forEach((r, i) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${i+1}</td>
+        <td>${escapeHtml(r.komisyonTxt || r.komisyonVal)}</td>
+        <td>${escapeHtml(r.personelTxt || r.personelVal)}</td>
+        <td>${escapeHtml(r.statuTxt || r.statuVal)}</td>
+        <td>${escapeHtml(r.baslangic || "-")}</td>
+        <td>${escapeHtml(r.bitis || "-")}</td>
+        <td>${r.aktif ? "Evet" : "Hayır"}</td>
+        <td>
+          <div class="btn-group btn-group-sm" role="group">
+            <button class="btn btn-outline-primary" data-action="edit" data-id="${r.id}">Düzenle</button>
+            <button class="btn btn-outline-danger" data-action="delete" data-id="${r.id}">Sil</button>
+          </div>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Düzenle/Sil
+  tbody.addEventListener("click", function(e){
+    const btn = e.target.closest("button[data-action]");
+    if(!btn) return;
+
+    const id = Number(btn.getAttribute("data-id"));
+    const action = btn.getAttribute("data-action");
+
+    if(action === "edit"){
+      const r = rows.find(x => x.id === id);
+      if(!r) return;
+
+      selKomisyon.value = r.komisyonVal;
+      selPersonel.value = r.personelVal;
+      selStatu.value = r.statuVal;
+      inpBaslangic.value = r.baslangic || "";
+      inpBitis.value = r.bitis || "";
+      chkAktif.checked = !!r.aktif;
+
+      editingId = id;
+      submitBtn.textContent = "Güncelle";
+      selKomisyon.focus();
+    }
+
+    if(action === "delete"){
+      if(confirm("Bu üyelik kaydını silmek istiyor musunuz?")){
+        rows = rows.filter(x => x.id !== id);
+        save(rows);
+        render();
+
+        if(editingId === id){
+          form.reset();
+          editingId = null;
+          submitBtn.textContent = "Kaydet";
+        }
+      }
+    }
+  });
+})();
+</script>
 
   </body>
 </html>

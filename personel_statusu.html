@@ -101,6 +101,22 @@
   <button type="submit" class="btn btn-primary">Kaydet</button>
 
 </form>
+<hr class="my-4" />
+
+<h6 class="card-title mb-3">Personel Statü Kayıtları</h6>
+<div class="table-responsive">
+  <table id="statuTable" class="table table-striped table-hover align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>#</th>
+        <th>Statü Adı</th>
+        <th>Statü Tanımı</th>
+        <th>İşlemler</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
 
                 </div>
               </div>
@@ -158,5 +174,140 @@
 
       <script src="assets/js/include.js"></script>
         <!--Menüler eklendi-->
+
+
+        <script>
+(function () {
+  const LS_KEY = "personelStatusleri";
+
+  const form = document.getElementById("personelStatu");
+  const inpAdi = document.getElementById("statuAdi");
+  const inpTanimi = document.getElementById("statuTanimi");
+  const tbody = document.querySelector("#statuTable tbody");
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const resetBtn = form.querySelector('button[type="reset"]');
+
+  let rows = load();
+  let editingId = null;
+
+  render();
+
+  // ==== Yardımcı Fonksiyonlar ====
+  function escapeHtml(s) {
+    return String(s ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
+  }
+
+  function save(arr) {
+    localStorage.setItem(LS_KEY, JSON.stringify(arr));
+  }
+
+  function load() {
+    try {
+      return JSON.parse(localStorage.getItem(LS_KEY) || "[]");
+    } catch {
+      return [];
+    }
+  }
+
+  // ==== Form Submit ====
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const payload = {
+      id: editingId ?? Date.now(),
+      adi: inpAdi.value.trim(),
+      tanim: inpTanimi.value.trim(),
+    };
+
+    if (!payload.adi) {
+      alert("Lütfen statü adını giriniz!");
+      return;
+    }
+
+    if (editingId) {
+      rows = rows.map((r) => (r.id === editingId ? payload : r));
+      editingId = null;
+      submitBtn.textContent = "Kaydet";
+    } else {
+      rows.push(payload);
+    }
+
+    save(rows);
+    render();
+    form.reset();
+  });
+
+  // ==== Reset ====
+  resetBtn.addEventListener("click", function () {
+    editingId = null;
+    submitBtn.textContent = "Kaydet";
+  });
+
+  // ==== Tabloyu Yeniden Çiz ====
+  function render() {
+    tbody.innerHTML = "";
+    if (!rows.length) {
+      tbody.innerHTML =
+        '<tr><td colspan="4" class="text-center text-muted">Henüz kayıt yok.</td></tr>';
+      return;
+    }
+
+    rows.forEach((r, i) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${i + 1}</td>
+        <td>${escapeHtml(r.adi)}</td>
+        <td>${escapeHtml(r.tanim || "-")}</td>
+        <td>
+          <div class="btn-group btn-group-sm" role="group">
+            <button class="btn btn-outline-primary" data-action="edit" data-id="${r.id}">Düzenle</button>
+            <button class="btn btn-outline-danger" data-action="delete" data-id="${r.id}">Sil</button>
+          </div>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  // ==== Düzenle / Sil İşlemleri ====
+  tbody.addEventListener("click", function (e) {
+    const btn = e.target.closest("button[data-action]");
+    if (!btn) return;
+
+    const id = Number(btn.dataset.id);
+    const action = btn.dataset.action;
+
+    if (action === "edit") {
+      const row = rows.find((x) => x.id === id);
+      if (!row) return;
+
+      inpAdi.value = row.adi;
+      inpTanimi.value = row.tanim;
+      editingId = id;
+      submitBtn.textContent = "Güncelle";
+    }
+
+    if (action === "delete") {
+      if (confirm("Bu kaydı silmek istiyor musunuz?")) {
+        rows = rows.filter((x) => x.id !== id);
+        save(rows);
+        render();
+
+        if (editingId === id) {
+          form.reset();
+          editingId = null;
+          submitBtn.textContent = "Kaydet";
+        }
+      }
+    }
+  });
+})();
+</script>
+
   </body>
 </html>
