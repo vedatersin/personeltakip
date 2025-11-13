@@ -78,41 +78,126 @@
 
                 <!-- FORM ELEMANLARI -->
 
-                <di class="row">
-  <div class="col-md-3">
-    <div class="card">
+
+<div class="row g-4 mb-4">
+  <!-- 4 küçük özet kart -->
+  <div class="col-xl-3 col-md-6">
+    <div class="card h-100">
       <div class="card-body">
         <h6 class="text-muted mb-1">Aktif Personel</h6>
         <h3 class="mb-0">128</h3>
       </div>
     </div>
   </div>
-  <div class="col-md-3">
-    <div class="card"><div class="card-body">
-      <h6 class="text-muted mb-1">Bu Ay Açılan Görev</h6>
-      <h3 class="mb-0">42</h3>
-    </div></div>
+
+  <div class="col-xl-3 col-md-6">
+    <div class="card h-100">
+      <div class="card-body">
+        <h6 class="text-muted mb-1">Bu Ay Açılan Görev</h6>
+        <h3 class="mb-0">42</h3>
+      </div>
+    </div>
   </div>
-  <div class="col-md-3">
-    <div class="card"><div class="card-body">
-      <h6 class="text-muted mb-1">Tamamlanan Görev</h6>
-      <h3 class="mb-0">37</h3>
-    </div></div>
+
+  <div class="col-xl-3 col-md-6">
+    <div class="card h-100">
+      <div class="card-body">
+        <h6 class="text-muted mb-1">Tamamlanan Görev</h6>
+        <h3 class="mb-0">37</h3>
+      </div>
+    </div>
   </div>
-  <div class="col-md-3">
-    <div class="card"><div class="card-body">
-      <h6 class="text-muted mb-1">Geciken Görev</h6>
-      <h3 class="mb-0 text-danger">5</h3>
-    </div></div>
+
+  <div class="col-xl-3 col-md-6">
+    <div class="card h-100">
+      <div class="card-body">
+        <h6 class="text-muted mb-1">Geciken Görev</h6>
+        <h3 class="mb-0 text-danger">5</h3>
+      </div>
+    </div>
   </div>
-<div class="card mt-3">
-  <div class="card-header d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">Aylık Görev Trendi</h5>
-    <a href="gorevler_modulu.html" class="btn btn-sm btn-outline-primary">Detaya Git</a>
-  </div>
-  <div class="card-body"><div id="chart-tasks-trend"></div></div>
 </div>
 
+<!-- Aylık trend kartı -->
+<div class="row g-4 mb-4">
+  <div class="col-12">
+    <div class="card h-100">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Aylık Görev Trendi</h5>
+        <a href="gorevler_modulu.html" class="btn btn-sm btn-outline-primary">Detaya Git</a>
+      </div>
+      <div class="card-body">
+        <div id="chart-tasks-trend"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Görev durumu & Komisyon iş yükü (TEK SATIR, İKİ KART) -->
+<div class="row g-4 mb-4">
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-header">
+        <h5 class="mb-0">Görev Durumu</h5>
+      </div>
+      <div class="card-body">
+        <div id="chart-status"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Komisyon İş Yükü</h5>
+        <a href="komisyonlar_modulu.html" class="btn btn-sm btn-outline-primary">Detaya Git</a>
+      </div>
+      <div class="card-body">
+        <div id="chart-commission"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Geciken görevler tablosu -->
+<div class="row g-4">
+  <div class="col-12">
+    <div class="card h-100">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Geciken Görevler</h5>
+        <a href="gorevler_modulu.html" class="btn btn-sm btn-outline-secondary">Tümünü Gör</a>
+      </div>
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Görev</th>
+            <th>Sorumlu</th>
+            <th>Son Tarih</th>
+            <th>Gün Gecikme</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td>Yıllık Plan Revizyonu</td>
+            <td>Ayşe Y.</td>
+            <td>2025-10-20</td>
+            <td class="text-danger">5</td>
+          </tr>
+          <tr>
+            <td>Komisyon Raporu</td>
+            <td>Mehmet K.</td>
+            <td>2025-10-18</td>
+            <td class="text-danger">7</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FORM ELEMANLARI -->
 <script>
   const optionsTrend = {
     chart: { type: 'line', height: 320, toolbar: { show: false } },
@@ -124,23 +209,7 @@
   };
   new ApexCharts(document.querySelector("#chart-tasks-trend"), optionsTrend).render();
 </script>
-<div class="row mt-3">
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-header"><h5 class="mb-0">Görev Durumu</h5></div>
-      <div class="card-body"><div id="chart-status"></div></div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Komisyon İş Yükü</h5>
-        <a href="komisyonlar_modulu.html" class="btn btn-sm btn-outline-primary">Detaya Git</a>
-      </div>
-      <div class="card-body"><div id="chart-commission"></div></div>
-    </div>
-  </div>
-</div>
+
 
 <script>
   new ApexCharts(document.querySelector("#chart-status"), {
@@ -159,23 +228,6 @@
   }).render();
 </script>
 
-<div class="row mt-3">
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-header"><h5 class="mb-0">Görev Durumu</h5></div>
-      <div class="card-body"><div id="chart-status"></div></div>
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Komisyon İş Yükü</h5>
-        <a href="komisyonlar_modulu.html" class="btn btn-sm btn-outline-primary">Detaya Git</a>
-      </div>
-      <div class="card-body"><div id="chart-commission"></div></div>
-    </div>
-  </div>
-</div>
 
 <script>
   new ApexCharts(document.querySelector("#chart-status"), {
@@ -193,26 +245,10 @@
     xaxis: { categories: ['Eğitim','Satınalma','Etik','Ar-Ge'] }
   }).render();
 </script>
-<div class="card mt-3">
-  <div class="card-header d-flex justify-content-between align-items-center">
-    <h5 class="mb-0">Geciken Görevler</h5>
-    <a href="gorevler_modulu.html" class="btn btn-sm btn-outline-secondary">Tümünü Gör</a>
-  </div>
-  <div class="table-responsive">
-    <table class="table">
-      <thead><tr><th>Görev</th><th>Sorumlu</th><th>Son Tarih</th><th>Gün Gecikme</th></tr></thead>
-      <tbody>
-        <tr><td>Yıllık Plan Revizyonu</td><td>Ayşe Y.</td><td>2025-10-20</td><td class="text-danger">5</td></tr>
-        <tr><td>Komisyon Raporu</td><td>Mehmet K.</td><td>2025-10-18</td><td class="text-danger">7</td></tr>
-      </tbody>
-    </table>
-  </div>
-</div>
 
 
-                </div>
-              </div>
-            </div>
+
+
             <!-- / Content -->
 
             <!-- Footer -->
