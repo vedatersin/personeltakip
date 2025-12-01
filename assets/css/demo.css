@@ -117,7 +117,7 @@
 /* === SIDEBAR KOYU GRI TEMA (YUMUŞAK DARK) === */
 
 #layout-menu {
-  background-color: #6d6b6b !important; /* koyu gri */
+  background-color: #2c3e50 !important; /* koyu gri */
 }
 
 /* Menü yazıları */
@@ -129,13 +129,13 @@
 
 /* Hover */
 #layout-menu .menu-link:hover {
-  background-color: #383838 !important;
+  background-color: #263545!important;
   color: #FFFFFF !important;
 }
 
 /* Aktif menü */
 #layout-menu .menu-item.active > .menu-link {
-  background-color: #898383 !important;
+  background-color: #6084a7  !important;
   color: #FFFFFF !important;
 }
 
