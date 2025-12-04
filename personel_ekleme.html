@@ -158,62 +158,100 @@
 
   </div>
 
-  <!-- TAB1 KİŞİSEL BİLGİLER -->
-  <div id="tab1" class="tab-content active">
-    <h2>Kişisel Bilgiler</h2>
-<form id="personelGorevlendirForm" method="post" action="#">
+ <!-- TAB1 KİŞİSEL BİLGİLER -->
+<div id="tab1" class="tab-content active">
+  <h2>Kişisel Bilgiler</h2>
 
-  <div class="mb-4">
-    <label for="personel" class="form-label">Personel Adı:</label>
-    <input type="text" id="personelAdi" name="personelAdi" class="form-control" placeholder="Personel adını girin">
-  </div>
-  <div class="mb-4">
-    <label for="personel" class="form-label">Personel Soyadı:</label>
-    <input type="text" id="personelSoyadi" name="personelSoyadi" class="form-control" placeholder="Personel soyadını girin">
-  </div>
-  <div class="mb-4">
-    <label for="personel" class="form-label">Personel TC KİMLİK NO:</label>
-    <input type="text" id="personelTcKimlik" name="personelTcKimlik" class="form-control" placeholder="Personel TC Kimlik Numarasını girin" maxlength="11">
-  </div>
-<div class="mb-4">
-  <label for="sifre" class="form-label">Şifre</label>
-      <input type="password" class="form-control" id="sifre" name="personelsifre"  maxlength="6" title="Şifre en az 6 karakter olmalıdır."required>
+  <form id="personelGorevlendirForm" method="post" action="#">
+    <!-- Personel Fotoğrafı -->
+    <div class="mb-4 d-flex align-items-center gap-4">
+      <!-- Fotoğraf Önizleme -->
+      <div>
+        <img  id="photoPreview"     src="https://via.placeholder.com/120"  alt="Personel Fotoğrafı"  class="rounded-circle border"  width="120"
+          height="120"  style="object-fit: cover;" >
       </div>
-<div class="mb-4">
 
-      <label for="telefon" class="form-label">Telefon</label>
-      <input type="tel" class="form-control" id="personeltelefon" name="personeltelefon"   placeholder="0555 555 55 55" pattern="^0[0-9]{10}$" maxlength="11"
-    title="Telefon numarası 11 haneli olmalıdır. Örnek: 05551234567">
+      <!-- Fotoğraf Yükleme -->
+      <div>
+        <label class="form-label d-block">Personel Fotoğrafı</label>
+        <input type="file" id="personelFoto" name="personelFoto" accept="image/*" class="form-control" >
+        <small class="text-muted">JPG, PNG yükleyebilirsiniz.</small>
       </div>
-      <div class="mb-4">
-       <label for="email" class="form-label">E-posta</label>
-  <input      type="email"     class="form-control"     id="personelemail"     name="personelemail"     placeholder="ornek@mail.com"     required   >
-  </div>
-   <div class="mb-4">
-    <label for="gorevli_il" class="form-label">Görevli İl</label>
-    <select class="form-select" id="personelgorevli_il" name="personelgorevli_il" required>
-    <option value="">İl Seçiniz...</option>
-    <option value="Adana">Adana</option>
-    <option value="Adıyaman">Adıyaman</option>
-    <option value="Afyonkarahisar">Afyonkarahisar</option>
-    <option value="Ağrı">Ağrı</option>
-    <option value="Amasya">Amasya</option>
-    </select>
-  </div>
- <div class="mb-4">
-    <label for="kadro_kurum" class="form-label">Kadro Kurum </label>
-       <input type="text" id="personelKadroKurum" name="personelKadroKurum" class="form-control" placeholder="Personelin Kadrosunun Bulunduğu Kurumu Giriniz">
+    </div>
+
+    <div class="mb-4">
+      <label for="personelAdi" class="form-label">Personel Adı:</label>
+      <input type="text" id="personelAdi" name="personelAdi" class="form-control" placeholder="Personel adını girin" >
+    </div>
+
+    <div class="mb-4">
+      <label for="personelSoyadi" class="form-label">Personel Soyadı:</label>
+      <input  type="text"  id="personelSoyadi" name="personelSoyadi" class="form-control" placeholder="Personel soyadını girin" >
+    </div>
+
+    <!-- Cinsiyet (RADIO) -->
+    <div class="mb-4">
+      <label class="form-label d-block">Personel Cinsiyet:</label>
+
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="personelCinsiyet" id="cinsiyetKadin" value="Kadın" >
+        <label class="form-check-label" for="cinsiyetKadin">Kadın</label>
+      </div>
+
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="personelCinsiyet" id="cinsiyetErkek" value="Erkek"         >
+        <label class="form-check-label" for="cinsiyetErkek">Erkek</label>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label for="personelTcKimlik" class="form-label">Personel TC KİMLİK NO:</label>
+      <input type="text" id="personelTcKimlik" name="personelTcKimlik" class="form-control" placeholder="Personel TC Kimlik Numarasını girin" maxlength="11" >
+    </div>
+
+    <div class="mb-4">
+      <label for="sifre" class="form-label">Şifre</label>
+      <input type="password" class="form-control" id="sifre" name="personelsifre" maxlength="6" title="Şifre en az 6 karakter olmalıdır." required >
+    </div>
+
+    <div class="mb-4">
+      <label for="personeltelefon" class="form-label">Telefon</label>
+      <input  type="tel" class="form-control" id="personeltelefon" name="personeltelefon" placeholder="0555 555 55 55" pattern="^0[0-9]{10}$"  maxlength="11"  title="Telefon numarası 11 haneli olmalıdır. Örnek: 05551234567"
+      >
+    </div>
+
+    <div class="mb-4">
+      <label for="personelemail" class="form-label">E-posta</label>
+      <input type="email" class="form-control"  id="personelemail"  name="personelemail" placeholder="ornek@mail.com" required >
+    </div>
+
+    <div class="mb-4">
+      <label for="personelgorevli_il" class="form-label">Görevli İl</label>
+      <select
+        class="form-select"  id="personelgorevli_il"  name="personelgorevli_il"  required >
+        <option value="">İl Seçiniz...</option>
+        <option value="Adana">Adana</option>
+        <option value="Adıyaman">Adıyaman</option>
+        <option value="Afyonkarahisar">Afyonkarahisar</option>
+        <option value="Ağrı">Ağrı</option>
+        <option value="Amasya">Amasya</option>
+      </select>
+    </div>
+
+    <div class="mb-4">
+      <label for="personelKadroKurum" class="form-label">Kadro Kurum</label>
+      <input  type="text" id="personelKadroKurum" name="personelKadroKurum" class="form-control"  placeholder="Personelin Kadrosunun Bulunduğu Kurumu Giriniz"  >
+    </div>
+
+    <div class="form-check mb-4">
+      <input  type="checkbox" id="gorevAktif" name="gorevAktif" class="form-check-input"  >
+      <label for="gorevAktif" class="form-check-label">Görev Aktiflik</label>
+    </div>
+
+    <button type="reset" class="btn btn-outline-secondary me-2">Temizle</button>
+    <button type="button" class="btn btn-primary" id="next1">İlerle</button>
+  </form>
 </div>
-   <div class="form-check mb-4">
-    <input type="checkbox" id="gorevAktif" name="gorevAktif" class="form-check-input">
-    <label for="gorevAktif" class="form-check-label">Görev Aktiflik</label>
-  </div>
-
-<button type="reset" class="btn btn-outline-secondary me-2">Temizle</button>
-<button type="button" class="btn btn-primary" id="next1">İlerle</button>
-
-
-  </div>
 
   <!-- TAB2 BECERİLER -->
   <div id="tab2" class="tab-content">
@@ -548,11 +586,21 @@
   <p class="text-muted">
     Diğer sekmelerde kaydedilen bilgiler aşağıdaki tabloda özetlenir.
   </p>
+  <div class="text-center mb-4">
+  <img id="kontrolFoto"
+       src="https://via.placeholder.com/120"
+       class="rounded-circle border"
+       width="120"
+       height="120"
+       style="object-fit: cover;">
+  <p class="mt-2 fw-bold">Personel Fotoğrafı</p>
+</div>
+
   <table class="table table-bordered table-sm">
     <thead>
       <tr>
-        <th>Alan</th>
-        <th>Değer</th>
+        <th>ALANLAR</th>
+        <th>DEĞERLER</th>
       </tr>
     </thead>
     <tbody id="kontrolTableBody">
@@ -568,9 +616,6 @@
 
 
 <!-- JAVASCRIPT -->
-
-<!-- JAVASCRIPT -->
-<!-- JAVASCRIPT -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     // =========================
@@ -581,20 +626,50 @@
 
     function activateTab(tabId) {
       buttons.forEach((b) => {
-        b.classList.toggle("active", b.getAttribute("data-tab") === tabId);
+        const isActive = b.getAttribute("data-tab") === tabId;
+        b.classList.toggle("active", isActive);
       });
       contents.forEach((c) => {
         c.classList.toggle("active", c.id === tabId);
       });
     }
 
-    // Sekme butonları yine çalışsın, ama ilerle de kullanacağız
     buttons.forEach((btn) => {
       btn.addEventListener("click", () => {
         const tabId = btn.getAttribute("data-tab");
         activateTab(tabId);
       });
     });
+
+    // =========================
+    // TÜM SEKME VERİLERİNİ TUTAN NESNE
+    // =========================
+    const personelData = {
+      kisisel: {},      // tab1
+      beceriler: [],    // tab2
+      uzmanlik: [],     // tab3
+      gorevler: [],     // tab4
+      isNiteligi: []    // tab5
+    };
+
+    // =========================
+    // FOTOĞRAF YÜKLEME + ÖNİZLEME
+    // =========================
+    const fotoInput = document.getElementById("personelFoto");
+    if (fotoInput) {
+      fotoInput.addEventListener("change", function (event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          personelData.kisisel.foto = e.target.result;         // veri içinde sakla
+          const preview = document.getElementById("photoPreview");
+          if (preview) preview.src = e.target.result;          // tab1 ön izleme
+        };
+        reader.readAsDataURL(file);
+      });
+    }
 
     // =========================
     // AÇIKLAMA CHECKBOX → TEXTAREA
@@ -616,70 +691,48 @@
     }
 
     // =========================
-    // TÜM SEKME VERİLERİNİ TUTAN NESNE
-    // =========================
-    const personelData = {
-      kisisel: {},      // tab1
-      beceriler: [],    // tab2
-      uzmanlik: [],     // tab3
-      gorevler: [],     // tab4
-      isNiteligi: []    // tab5
-    };
-
-    // =========================
     // KONTROL SEKMESİNDE TABLOYU GÜNCELLE
     // =========================
     function updateKontrolTab() {
       const tbody = document.getElementById("kontrolTableBody");
       if (!tbody) return;
 
+      // FOTOĞRAFI KONTROL SEKMESİNE KOPYALA
+      const kontrolFoto = document.getElementById("kontrolFoto");
+      if (kontrolFoto && personelData.kisisel.foto) {
+        kontrolFoto.src = personelData.kisisel.foto;
+      }
+
       tbody.innerHTML = "";
       const rows = [];
-
       const k = personelData.kisisel;
 
+      // Kişisel bilgiler
       if (k.ad || k.soyad) {
-        rows.push([
-          "Ad Soyad",
-          `${k.ad || ""} ${k.soyad || ""}`.trim()
-        ]);
+        rows.push(["Ad Soyad", `${k.ad || ""} ${k.soyad || ""}`.trim()]);
       }
-      if (k.tc) {
-        rows.push(["TC Kimlik No", k.tc]);
-      }
-      if (k.telefon) {
-        rows.push(["Telefon", k.telefon]);
-      }
-      if (k.email) {
-        rows.push(["E-posta", k.email]);
+      if (k.tc)         rows.push(["TC Kimlik No", k.tc]);
+      if (k.cinsiyet)   rows.push(["Cinsiyet", k.cinsiyet]);
+      if (k.telefon)    rows.push(["Telefon", k.telefon]);
+      if (k.email)      rows.push(["E-posta", k.email]);
+      if (k.gorevliIl)  rows.push(["Görevli İl", k.gorevliIl]);
+      if (k.kadroKurum) rows.push(["Kadro Kurum", k.kadroKurum]);
+      if (typeof k.gorevAktif !== "undefined") {
+        rows.push(["Görev Aktiflik", k.gorevAktif ? "Aktif" : "Pasif"]);
       }
 
+      // Diğer sekmeler
       if (personelData.beceriler.length) {
-        rows.push([
-          "Kullandığı Yazılımlar",
-          personelData.beceriler.join(", ")
-        ]);
+        rows.push(["Kullandığı Yazılımlar", personelData.beceriler.join(", ")]);
       }
-
       if (personelData.uzmanlik.length) {
-        rows.push([
-          "Uzmanlık Alanları",
-          personelData.uzmanlik.join(", ")
-        ]);
+        rows.push(["Uzmanlık Alanları", personelData.uzmanlik.join(", ")]);
       }
-
       if (personelData.gorevler.length) {
-        rows.push([
-          "Görev(ler)",
-          personelData.gorevler.join(", ")
-        ]);
+        rows.push(["Görev(ler)", personelData.gorevler.join(", ")]);
       }
-
       if (personelData.isNiteligi.length) {
-        rows.push([
-          "Yapılan İş Niteliği",
-          personelData.isNiteligi.join(", ")
-        ]);
+        rows.push(["Yapılan İş Niteliği", personelData.isNiteligi.join(", ")]);
       }
 
       rows.forEach(([alan, deger]) => {
@@ -700,28 +753,39 @@
     const next1 = document.getElementById("next1");
     if (next1) {
       next1.addEventListener("click", function () {
-        const ad = document.getElementById("personelAdi");
+        const ad    = document.getElementById("personelAdi");
         const soyad = document.getElementById("personelSoyadi");
-        const tc = document.getElementById("personelTcKimlik");
-        const tel = document.getElementById("personeltelefon");
-        const mail = document.getElementById("personelemail");
+        const tc    = document.getElementById("personelTcKimlik");
+        const tel   = document.getElementById("personeltelefon");
+        const mail  = document.getElementById("personelemail");
 
-        personelData.kisisel = {
-          ad: ad ? ad.value.trim() : "",
-          soyad: soyad ? soyad.value.trim() : "",
-          tc: tc ? tc.value.trim() : "",
-          telefon: tel ? tel.value.trim() : "",
-          email: mail ? mail.value.trim() : ""
-        };
+        // Cinsiyet (radio)
+        const cinsiyetSecili = document.querySelector(
+          'input[name="personelCinsiyet"]:checked'
+        );
+
+        // Kurumsal basit alanlar
+        const gorevliIl   = document.getElementById("personelgorevli_il");
+        const kadroKurum  = document.getElementById("personelKadroKurum");
+        const gorevAktif  = document.getElementById("gorevAktif");
+
+        personelData.kisisel.ad      = ad    ? ad.value.trim() : "";
+        personelData.kisisel.soyad   = soyad ? soyad.value.trim() : "";
+        personelData.kisisel.tc      = tc    ? tc.value.trim() : "";
+        personelData.kisisel.telefon = tel   ? tel.value.trim() : "";
+        personelData.kisisel.email   = mail  ? mail.value.trim() : "";
+
+        personelData.kisisel.cinsiyet   = cinsiyetSecili ? cinsiyetSecili.value : "";
+        personelData.kisisel.gorevliIl  = gorevliIl   ? gorevliIl.value : "";
+        personelData.kisisel.kadroKurum = kadroKurum  ? kadroKurum.value.trim() : "";
+        personelData.kisisel.gorevAktif = gorevAktif  ? gorevAktif.checked : false;
 
         updateKontrolTab();
         activateTab("tab2");
       });
     }
 
-    // =========================
-    // TAB2 – BECERİLER İLERLE
-    // =========================
+    // TAB2 – BECERİLER
     const next2 = document.getElementById("next2");
     if (next2) {
       next2.addEventListener("click", function () {
@@ -735,16 +799,15 @@
       });
     }
 
-    // =========================
-    // TAB3 – UZMANLIK İLERLE
-    // =========================
+    // TAB3 – UZMANLIK
     const next3 = document.getElementById("next3");
     if (next3) {
       next3.addEventListener("click", function () {
-        // Tab3'teki tüm seçili checkbox'ları al
         const checked = Array.from(
           document.querySelectorAll('#tab3 input[type="checkbox"]:checked')
-        ).map((el) => el.nextElementSibling ? el.nextElementSibling.textContent.trim() : el.value);
+        ).map((el) =>
+          el.nextElementSibling ? el.nextElementSibling.textContent.trim() : el.value
+        );
 
         personelData.uzmanlik = checked;
         updateKontrolTab();
@@ -752,9 +815,7 @@
       });
     }
 
-    // =========================
-    // TAB4 – GÖREVLER İLERLE
-    // =========================
+    // TAB4 – GÖREVLER
     const next4 = document.getElementById("next4");
     if (next4) {
       next4.addEventListener("click", function () {
@@ -768,9 +829,7 @@
       });
     }
 
-    // =========================
-    // TAB5 – YAPILAN İŞ NİTELİĞİ İLERLE
-    // =========================
+    // TAB5 – YAPILAN İŞ NİTELİĞİ
     const next5 = document.getElementById("next5");
     if (next5) {
       next5.addEventListener("click", function () {
@@ -783,9 +842,13 @@
         activateTab("tab6");
       });
     }
-
   });
 </script>
+
+<!-- JAVASCRIPT -->
+
+
+
 
 
 

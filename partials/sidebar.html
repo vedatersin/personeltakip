@@ -1,4 +1,13 @@
- <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+<style>
+
+  body {
+    margin: 0;
+    padding: 0;
+    background: #b4b1c1;
+    font-family: Arial, sans-serif;
+  }
+</style>
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
             <a href="index.html" class="app-brand-link">
               <span class="app-brand-logo demo">
@@ -52,7 +61,7 @@
                   </svg>
                 </span>
               </span>
-              <span class="app-brand-text demo menu-text fw-bold ms-2">PERSONEL TAKİP</span>
+              <span class="app-brand-text demo menu-text fw-bold ms-2 text-white">PERSONEL TAKİP</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -60,14 +69,14 @@
             </a>
           </div>
 
-          <div class="menu-divider mt-0"></div>
+
 
           <div class="menu-inner-shadow"></div>
 
           <ul class="menu-inner py-1">
             <!-- menüler -->
             <li class="menu-item open">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="index.html" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-home-smile"></i>
                 <div class="text-truncate" data-i18n="Dashboards">Genel Görünüm</div>
               </a>
@@ -81,7 +90,7 @@
                 <li class="menu-item">
                 <a href="koordinatorluk_modul.html" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-network-chart"></i>
-                <div class="text-truncate" data-i18n="Koordinatorluk">Koordinatörlük Modülü</div>
+                <div class="text-truncate" data-i18n="Koordinatorluk">Koordinatörlük Ekle</div>
                 </a>
                 </li>
 
@@ -91,13 +100,13 @@
                 <li class="menu-item">
                   <a href="komisyon_uyelik_modulu.html" class="menu-link">
                       <i class="menu-icon tf-icons bx bx-network-chart"></i>
-                    <div class="text-truncate" data-i18n="Without menu">Komisyon Üyeleri</div>
+                    <div class="text-truncate" data-i18n="Without menu">Komisyon Üye Ekle</div>
                   </a>
                 </li>
                  <li class="menu-item">
                   <a href="komisyon_gorevlendirme.html" class="menu-link">
                     <i class="menu-icon tf-icons bx bx-network-chart"></i>
-                    <div class="text-truncate" data-i18n="Without navbar">Komisyon Görevlendirmeleri</div>
+                    <div class="text-truncate" data-i18n="Without navbar">Komisyon Görevlendirme</div>
                   </a>
                 </li>
                   <li class="menu-item">
@@ -112,7 +121,7 @@
 
             <!-- Personeller -->
             <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Personeller</span>
+              <span class="menu-header-text">Personel Bilgileri</span>
             </li>
             <li class="menu-item">
               <a
@@ -125,6 +134,15 @@
             </li>
             <li class="menu-item">
               <a
+                href="personel_detay.html"
+
+                class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <div class="text-truncate" data-i18n="Email">Personel Detay</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a
                 href="personel_gorevlendirme.html"
 
                 class="menu-link">
@@ -132,6 +150,7 @@
                 <div class="text-truncate" data-i18n="Email">Personel Görevlendirme</div>
               </a>
             </li>
+   <li class="menu-header small text-uppercase"><span class="menu-header-text">Nitelik Ekleme</span></li>
 
             <li class="menu-item">
               <a
@@ -139,7 +158,7 @@
 
                 class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
-                <div class="text-truncate" data-i18n="Chat">Uzmanlık</div>
+                <div class="text-truncate" data-i18n="Chat">Uzmanlık Ekle</div>
 
               </a>
             </li>
@@ -149,7 +168,7 @@
 
                 class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
-                <div class="text-truncate" data-i18n="Chat">Beceriler</div>
+                <div class="text-truncate" data-i18n="Chat">Beceri Ekle</div>
 
               </a>
             </li>
@@ -159,7 +178,7 @@
 
                 class="menu-link">
                  <i class="menu-icon tf-icons bx bx-user"></i>
-                <div class="text-truncate" data-i18n="Chat">Kullanılan Programlar</div>
+                <div class="text-truncate" data-i18n="Chat">Kullanılan Program Ekle</div>
 
               </a>
             </li>
@@ -174,9 +193,5 @@
               </a>
             </li>
             <!-- User interface -->
-
-
-
-
           </ul>
         </aside>
