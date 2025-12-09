@@ -48,6 +48,21 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
 
     <script src="assets/js/config.js"></script>
+    <style>
+  .card {
+    background-color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+    border-radius: 14px !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.07) !important;
+  }
+
+  .card-header {
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #ffffff !important;
+    font-weight: 600;
+  }
+</style>
+
   </head>
 
   <body>
@@ -143,40 +158,67 @@
       </div>
     </div>
 
-    <div class="row g-4">
-      <!-- SOL: PROFİL KARTI -->
-      <div class="col-md-4">
-        <div class="card">
-          <div class="card-body text-center">
-            <img
-              id="detayFoto"
-              src="https://via.placeholder.com/120"
-              alt="Personel Fotoğrafı"
-              class="profile-avatar mb-3"
-            />
+   <div class="row g-4">
+  <!-- SOL: PROFİL KARTI -->
+  <div class="col-md-4">
+    <!-- Mevcut profil kartı -->
+    <div class="card mb-4">
+      <div class="card-body text-center">
+        <img
+          id="detayFoto"
+          src="https://via.placeholder.com/120"
+          alt="Personel Fotoğrafı"
+          class="profile-avatar mb-3"
+        />
 
-            <h5 id="detayAdSoyad" class="mb-1">Ad Soyad</h5>
-            <p id="detayUnvan" class="text-muted mb-2">Unvan / Görev</p>
+        <h5 id="detayAdSoyad" class="mb-1">Ad Soyad</h5>
+        <p id="detayUnvan" class="text-muted mb-2">Unvan / Görev</p>
 
-            <span id="detayDurum" class="badge bg-success">Aktif</span>
+        <span id="detayDurum" class="badge bg-success">Aktif</span>
 
-            <hr />
+        <hr />
 
-            <p class="mb-1">
-              <strong>Cinsiyet: </strong>
-              <span id="detayCinsiyet">-</span>
-            </p>
-            <p class="mb-1">
-              <strong>Görevli İl: </strong>
-              <span id="detayGorevliIl">-</span>
-            </p>
-            <p class="mb-0">
-              <strong>Kadro Kurum: </strong>
-              <span id="detayKadroKurum">-</span>
-            </p>
-          </div>
-        </div>
+        <p class="mb-1">
+          <strong>Cinsiyet: </strong>
+          <span id="detayCinsiyet">-</span>
+        </p>
+        <p class="mb-1">
+          <strong>Görevli İl: </strong>
+          <span id="detayGorevliIl">-</span>
+        </p>
+        <p class="mb-0">
+          <strong>Kadro Kurum: </strong>
+          <span id="detayKadroKurum">-</span>
+        </p>
       </div>
+    </div>
+
+    <!-- 🆕 YENİ KART: Görevlendirme Bilgileri -->
+    <div class="card">
+      <div class="card-header">
+        <h6 class="mb-0">Görevlendirme Bilgileri</h6>
+      </div>
+      <div class="card-body">
+        <p class="mb-1">
+          <strong>Koordinatörlük: </strong>
+          <span id="detayKoordinatorluk">-</span>
+        </p>
+        <p class="mb-1">
+          <strong>Komisyon: </strong>
+          <span id="detayKomisyon">-</span>
+        </p>
+        <p class="mb-1">
+          <strong>Görev Verilme Tarihi: </strong>
+          <span id="detayGorevVerilme">-</span>
+        </p>
+        <p class="mb-0">
+          <strong>Görev Teslim Tarihi: </strong>
+          <span id="detayGorevTeslim">-</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
 
       <!-- SAĞ: TEMEL BİLGİLER TABLOSU -->
       <div class="col-md-8">
@@ -269,6 +311,8 @@
               </div>
             </div>
           </div>
+
+
         </div>
       </div> <!-- /col-md-8 -->
     </div> <!-- /row -->
