@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function (e) {
         opacity: [1, 1]
       },
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+        categories: ['İzmir', 'İstanbul', 'Ankara', 'Konya', 'Sivas', 'Niğde', 'Gaziantep'],
         labels: {
           style: {
             fontSize: '13px',

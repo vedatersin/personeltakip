@@ -78,7 +78,7 @@
 
                 <div class="col-12">
                   <div class="card">
-                    <h5 class="card-header">Komisyonlar Modülü</h5>
+                    <h5 class="card-header">Komisyon Ekle</h5>
                     <div class="card-body">
  <form id="koordinatorForm" method="post" action="#">
 
@@ -113,11 +113,16 @@
       <option value="idari">İstanbul Koordinatörlük</option>
     </select>
   </div>
-<div class="mb-4">
-    <label for="gorevli" class="form-label">Görevli Koordinatör:</label>
-    <input type="text" id="gorevli" name="gorevli" class="form-control" placeholder="Görevli koordinatörü girin">
-  </div>
 
+<div class="mb-4">
+    <label for="gorevli" class="form-label">Görevli Komisyon Başkanı:</label>
+    <select id="gorevli" name="gorevli" class="form-select">
+      <option value="">Komisyon Başkanı (buraya veritabanından gelecek)</option>
+      <option value="g1">Ahmet</option>
+      <option value="g2">Ayşe</option>
+      <option value="g3">Mehmet </option>
+    </select>
+  </div>
 
 
 
