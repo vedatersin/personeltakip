@@ -88,7 +88,7 @@
 
   .tabs-container {
     width: 90%;
-    max-width: 900px;
+     max-width: 100%;
     margin: 60px auto;
   }
 
@@ -238,6 +238,22 @@
       </select>
     </div>
 
+  <!-- ✅ BRANŞ ALANI -->
+  <div class="mb-4">
+    <label for="personelBrans" class="form-label">Branş</label>
+    <select id="personelBrans" name="personelBrans" class="form-select">
+      <option value="">Branş Seçiniz...</option>
+      <option value="Bilişim Teknolojileri">Bilişim Teknolojileri</option>
+      <option value="Türkçe">Türkçe</option>
+      <option value="Matematik">Matematik</option>
+      <option value="Fen Bilimleri">Fen Bilimleri</option>
+      <option value="Sosyal Bilgiler">Sosyal Bilgiler</option>
+      <option value="İngilizce">İngilizce</option>
+      <option value="Sınıf Öğretmeni">Sınıf Öğretmeni</option>
+      <option value="Rehberlik">Rehberlik</option>
+      <option value="Diğer">Diğer</option>
+    </select>
+  </div>
 
       <div class="mb-4">
       <label for="personelKoordinatorluk" class="form-label">Kadro Kurum</label>
@@ -718,6 +734,7 @@
       if (k.email)      rows.push(["E-posta", k.email]);
       if (k.gorevliIl)  rows.push(["Görevli İl", k.gorevliIl]);
       if (k.kadroKurum) rows.push(["Kadro Kurum", k.kadroKurum]);
+      if (k.brans) rows.push(["Branş", k.brans]);
       if (typeof k.gorevAktif !== "undefined") {
         rows.push(["Görev Aktiflik", k.gorevAktif ? "Aktif" : "Pasif"]);
       }
@@ -760,6 +777,7 @@
         const tel   = document.getElementById("personeltelefon");
         const mail  = document.getElementById("personelemail");
 
+
         // Cinsiyet (radio)
         const cinsiyetSecili = document.querySelector(
           'input[name="personelCinsiyet"]:checked'
@@ -769,6 +787,7 @@
         const gorevliIl   = document.getElementById("personelgorevli_il");
         const kadroKurum  = document.getElementById("personelKadroKurum");
         const gorevAktif  = document.getElementById("gorevAktif");
+        const brans       = document.getElementById("personelBrans");
 
         personelData.kisisel.ad      = ad    ? ad.value.trim() : "";
         personelData.kisisel.soyad   = soyad ? soyad.value.trim() : "";
@@ -779,6 +798,7 @@
         personelData.kisisel.cinsiyet   = cinsiyetSecili ? cinsiyetSecili.value : "";
         personelData.kisisel.gorevliIl  = gorevliIl   ? gorevliIl.value : "";
         personelData.kisisel.kadroKurum = kadroKurum  ? kadroKurum.value.trim() : "";
+           personelData.kisisel.brans      = brans       ? brans.value : "";
         personelData.kisisel.gorevAktif = gorevAktif  ? gorevAktif.checked : false;
 
         updateKontrolTab();
