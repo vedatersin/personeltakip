@@ -92,6 +92,33 @@
     <label for="gorevTanimi" class="form-label">Görev Tanımı:</label>
     <textarea id="gorevTanimi" name="gorevTanimi" class="form-control" rows="3" placeholder="Görevin açıklamasını yazın"></textarea>
   </div>
+  <!-- Görev Kategorisi (Radio) -->
+<div class="mb-4">
+  <label class="form-label d-block">Görev Kategorisi:</label>
+
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="gorevKategori" id="kategoriDersKitaplari" value="Ders Kitapları Kategorisi" required>
+    <label class="form-check-label" for="kategoriDersKitaplari">Ders Kitapları Kategorisi</label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="gorevKategori" id="kategoriYardimciKaynaklar" value="Yardımcı Kaynaklar">
+    <label class="form-check-label" for="kategoriYardimciKaynaklar">Yardımcı Kaynaklar</label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="gorevKategori" id="kategoriDijitalIcerik" value="Dijital İçerik">
+    <label class="form-check-label" for="kategoriDijitalIcerik">Dijital İçerik</label>
+  </div>
+
+  <div class="form-check">
+    <input class="form-check-input" type="radio" name="gorevKategori" id="kategoriProgramlar" value="Programlar">
+    <label class="form-check-label" for="kategoriProgramlar">Programlar</label>
+  </div>
+</div>
+
+
+
  <div class="mb-4">
     <label for="gorevBaslangic" class="form-label">Görev Başlangıç Tarihi:</label>
     <input type="date" id="gorevBaslangic" name="gorevBaslangic" class="form-control">

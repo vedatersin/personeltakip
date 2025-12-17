@@ -88,19 +88,28 @@
   <div class="mb-4">
     <label for="personel" class="form-label">Personel:</label>
     <select id="personel" name="personel" class="form-select">
-      <option value="">Personel seçin veritabanından gelecek</option>
+      <option value="">Personel seçin veritabanından gelecek</option>s
       <option value="ahmet">Ahmet Yılmaz</option>
       <option value="ayse">Ayşe Demir</option>
       <option value="mehmet">Mehmet Kara</option>
     </select>
   </div>
    <div class="mb-4">
-    <label for="gorev" class="form-label">Görev:</label>
-    <select id="gorev" name="gorev" class="form-select">
-      <option value="">Görev seçin veritabanından gelecek</option>
+    <label  for="uzmanlik" class="form-label">Uzmanlık:</label>
+    <select id="uzmanlik" name="uzmanlik" class="form-select">
+      <option value="">Veritabanından gelecek</option>
       <option value="yazar">Yazar</option>
       <option value="bilişim uzmanı">Bilişim Uzmanı</option>
       <option value="Görsel tasarım">Görsel Tasarım</option>
+    </select>
+  </div>
+   <div class="mb-4" id="anaGorevTuruArea" ">
+  <label for="anaGorevTuru" class="form-label">Ana Görev Türü:</label>
+  <select id="anaGorevTuru" name="anaGorevTuru" class="form-select">
+      <option value="">Görev seçin veritabanından gelecek</option>
+      <option value="yazar">Görsel Üretim</option>
+      <option value="bilişim uzmanı">Dizgi </option>
+      <option value="Görsel tasarım">Görsel Kontrolü</option>
     </select>
   </div>
     <div class="mb-4">
@@ -167,10 +176,30 @@
   </div>
 
   <div class="form-check mb-4">
-    <input type="checkbox" id="gorevAktif" name="gorevAktif" class="form-check-input">
-    <label for="gorevAktif" class="form-check-label">Görev Aktiflik</label>
-  </div>
+  <input type="checkbox" id="gorevAktif" name="gorevAktif" class="form-check-input">
+  <label for="gorevAktif" class="form-check-label">Görev Aktiflik</label>
+</div>
 
+<div class="form-check mb-4">
+  <input type="checkbox" id="anaGorev" name="anaGorev" class="form-check-input">
+  <label for="anaGorev" class="form-check-label">Ana Görev</label>
+</div>
+
+<div class="form-check mb-4">
+  <input type="checkbox" id="ikincilGorev" name="ikincilGorev" class="form-check-input">
+  <label for="ikincilGorev" class="form-check-label">İkincil Görev</label>
+</div>
+
+  <!-- ✅ İKİNCİL checkbox'ının HEMEN ALTINDA -->
+<div class="mt-3 mb-4" id="ikincilGorevTuruArea" style="display:none;">
+  <label for="ikincilGorevTuru" class="form-label">İkincil Görev Türü:</label>
+  <select id="ikincilGorevTuru" name="ikincilGorevTuru" class="form-select">
+    <option value="">Görev seçin veritabanından gelecek</option>
+    <option value="gorsel_uretim">Görsel Üretim</option>
+    <option value="dizgi">Dizgi</option>
+    <option value="gorsel_kontrol">Görsel Kontrolü</option>
+  </select>
+</div>
  <button type="reset" class="btn btn-outline-secondary me-2">Temizle</button>
   <button type="submit" class="btn btn-primary">Kaydet</button>
 
@@ -257,7 +286,12 @@
 
   const form = document.getElementById("personelGorevlendirForm");
   const selPersonel = document.getElementById("personel");
-  const selGorev = document.getElementById("gorev");
+  const selUzmanlik = document.getElementById("uzmanlik");
+  const selAnaGorevTuru = document.getElementById("anaGorevTuru");
+
+  const chkIkincil = document.getElementById("ikincilGorev");
+  const ikincilArea = document.getElementById("ikincilGorevTuruArea");
+  const selIkincilGorevTuru = document.getElementById("ikincilGorevTuru");
   const inpVerilme = document.getElementById("verilmeTarihi");
   const inpTeslim = document.getElementById("teslimTarihi");
   const chkAktif = document.getElementById("gorevAktif");
@@ -293,26 +327,49 @@
       return [];
     }
   }
+  function renderIkincil() {
+  const show = chkIkincil.checked;
+  ikincilArea.style.display = show ? "" : "none";
+  if (!show) selIkincilGorevTuru.value = "";
+}
+chkIkincil.addEventListener("change", renderIkincil);
+renderIkincil();
+form.addEventListener("reset", () => setTimeout(renderIkincil, 0));
+
 
   // ==== Form Submit ====
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
     const payload = {
-      id: editingId ?? Date.now(),
-      personelVal: selPersonel.value,
-      personelTxt: getOptText(selPersonel),
-      gorevVal: selGorev.value,
-      gorevTxt: getOptText(selGorev),
-      verilme: inpVerilme.value,
-      teslim: inpTeslim.value,
-      aktif: chkAktif.checked,
-    };
+  id: editingId ?? Date.now(),
+  personelVal: selPersonel.value,
+  personelTxt: getOptText(selPersonel),
 
-    if (!payload.personelVal || !payload.gorevVal) {
-      alert("Personel ve Görev alanları zorunludur!");
-      return;
-    }
+  uzmanlikVal: selUzmanlik.value,
+  uzmanlikTxt: getOptText(selUzmanlik),
+
+  anaGorevTuruVal: selAnaGorevTuru.value,
+  anaGorevTuruTxt: getOptText(selAnaGorevTuru),
+
+  ikincilMi: chkIkincil.checked,
+  ikincilGorevTuruVal: chkIkincil.checked ? selIkincilGorevTuru.value : "",
+  ikincilGorevTuruTxt: chkIkincil.checked ? getOptText(selIkincilGorevTuru) : "",
+
+  verilme: inpVerilme.value,
+  teslim: inpTeslim.value,
+  aktif: chkAktif.checked,
+};
+
+    if (!payload.personelVal || !payload.uzmanlikVal || !payload.anaGorevTuruVal) {
+  alert("Personel, Uzmanlık ve Ana Görev Türü zorunludur!");
+  return;
+}
+if (payload.ikincilMi && !payload.ikincilGorevTuruVal) {
+  alert("İkincil görev seçtiyseniz İkincil Görev Türü seçmelisiniz!");
+  return;
+}
+
 
     if (editingId) {
       rows = rows.map((r) => (r.id === editingId ? payload : r));

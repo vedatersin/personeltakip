@@ -26083,6 +26083,8 @@ li:not(:first-child) .dropdown-item, .dropdown-menu .dropdown-item:not(:first-ch
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+          max-height: calc(100vh - 4rem);
+  overflow-y: auto;
 }
 .menu-vertical .menu-inner > .menu-item {
   margin-block: var(--bs-menu-item-spacer);
